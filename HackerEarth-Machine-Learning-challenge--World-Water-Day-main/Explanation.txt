@@ -1,0 +1,56 @@
+﻿Approach Explanation
+
+
+The given dataset is used to predict water consumption using machine learning techniques. The following steps were followed to preprocess the data and train an optimal model:
+
+
+1. Data Loading
+* The training and testing datasets were uploaded in drive and loaded using Pandas.
+   
+2. Datetime Feature Engineering
+* The `Timestamp` column is converted into a datetime object.
+* Extracted new features: `Hour`, `Day`, `Month`, `DayOfWeek`, and `IsWeekend`.
+* The `Timestamp` column is dropped after feature extraction.
+   
+3. Handling Missing Values
+* Numerical missing values are replaced with the mean of the respective columns.
+* Categorical missing values are filled using the mode (most frequent value) of the respective columns.
+   
+4. Categorical Encoding
+* Used `LabelEncoder` to convert categorical columns into numerical values for training.
+* Ensured that unknown categories in the test set are handled appropriately.
+   
+5. Feature Scaling
+* Standardization is applied using `StandardScaler` to ensure all numerical features are on the same scale.
+   
+6. Model Selection and Training
+* Choosed `XGBoost Regressor` due to its efficiency in handling structured datasets and strong predictive capabilities.
+* Used the squared error loss function (`reg:squared error`) for regression.
+* Hyperparameters:
+- `n_estimators=600`: Number of boosting rounds.
+- `learning_rate=0.03`: Controls the step size during training.
+             - `max_depth=8`: Limits the depth of each tree to avoid overfitting.
+             - `colsample_bytree=0.8`: Controls the fraction of features used per tree.
+   - Trained the model using the processed training dataset.
+   
+7. Prediction and Submission
+* The trained model predicts water consumption for the test dataset.
+* The predictions are rounded to two decimal places for better readability.
+* The output is stored in a CSV file (`submission.csv`) containing the `Timestamp` and predicted `Water_Consumption`.
+
+
+Feature Engineering Details
+* Timestamp Features: Hour, Day, Month, DayOfWeek, IsWeekend (derived from Timestamp).
+* Missing Value Handling: Mean imputation for numerical values, mode imputation for categorical values.
+* Encoding: Label Encoding for categorical variables.
+* Scaling:Standardization using StandardScaler.
+
+
+Tools Used
+* Pandas: Data manipulation and preprocessing.
+* NumPy: Numerical computations.
+* scikit-learn: Preprocessing (StandardScaler, LabelEncoder).
+* XGBoost: Model training and prediction.
+
+
+This pipeline ensures that the data is well-prepared and that the model generalizes effectively for water consumption prediction.
